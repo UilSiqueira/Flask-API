@@ -1,0 +1,53 @@
+version: "3.1"
+
+services:
+  flask_app:
+    build: 
+      context: .
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
+    command: sh -c "flask run --host 0.0.0.0 --port 5000 --reload" # development
+    # command: sh -c "gunicorn app:create_app --bind 0.0.0.0:5000 --workers 3" # production
+    depends_on:
+      - postgresql-flask-dev
+
+
+
+  postgresql-flask:
+    image: postgres
+    container_name:  postgresql-flask
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpass
+      POSTGRES_DB: main_flask
+    volumes:
+      - /var/cache/postgres_flask_data:/var/lib/postgresql/data
+
+
+  postgresql-flask-dev:
+    image: postgres
+    container_name: postgresql-flask-dev
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpass
+      POSTGRES_DB: main_flask
+    volumes:
+      - /var/cache/postgres_flask_dev_data:/var/lib/postgresql/data
+
+
+  pgadmin-flask:
+    image: dpage/pgadmin4
+    env_file:
+      - ./.env
+    ports:
+      - 5050:80
+    depends_on:
+      - postgresql-flask
