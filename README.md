@@ -11,8 +11,8 @@ Configuração Inicial
 
 Clone o Repositório:
 
-    git clone https://seurepositorio.git
-    cd seu-repositorio
+    git clone git@github.com:UilSiqueira/Flask-API.git
+    cd Flask-API
 
 Inicie os Serviços Docker:
 
@@ -54,8 +54,8 @@ Initial Setup
 
   Clone the Repository:
 
-    git clone https://yourrepository.git
-    cd your-repository
+    git clone git@github.com:UilSiqueira/Flask-API.git
+    cd Flask-API
 
 Start Docker Services:
 
